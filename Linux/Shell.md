@@ -1,3 +1,18 @@
+<!-- vim-markdown-toc GFM -->
+
+* [切换为zsh](#切换为zsh)
+    * [安装zsh](#安装zsh)
+    * [切换](#切换)
+* [zsh配置](#zsh配置)
+    * [oh my zsh 美化](#oh-my-zsh-美化)
+    * [设置powerlevel10k为主题](#设置powerlevel10k为主题)
+    * [插件配置](#插件配置)
+        * [zsh-autosuggestions](#zsh-autosuggestions)
+        * [zsh-syntax-highlighting](#zsh-syntax-highlighting)
+        * [z](#z)
+        * [以上插件还需添加至.zshrc中](#以上插件还需添加至zshrc中)
+
+<!-- vim-markdown-toc -->
 # 切换为zsh
 ## 安装zsh
 ```
