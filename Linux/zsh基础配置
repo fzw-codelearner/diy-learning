@@ -1,0 +1,145 @@
+Zsh基础配置
+
+ By Zewen Fu
+
+
+
+目录 
+1 配置软件源   1
+1.1 Debian源   1
+1.2 Ubuntu源   2
+2 安装并切换为Zsh   3
+3 Zsh配置   4
+3.1 Oh My Zsh美化配置   4
+3.2 使用Powerlevel10k主题   4
+3.3 插件配置   4
+3.3.1 安装插件   4
+zsh-autosuggestions   4
+zsh-syntax-highlighting   5
+z   5
+3.3.2 添加插件   5
+1  配置软件源 
+
+因为默认软件源一般在国外，读取较慢，所以要修改软件源为国内镜像源
+1.打开软件源配置地址：sudo vim /etc/apt/sources.list或者使用其他编辑器打开
+2.将原本配置源注释（即在对应行首插入#）
+3.添加对应国内镜像源
+4.保存退出
+以下是Debian和Ubuntu的国内镜像源，默认注释了源吗镜像以提高apt update的速度，如有需要可自行取消注释
+1.1  Debian源 
+
+阿里云源：
+deb https://mirrors.aliyun.com/debian/ bookworm main non-free non-free-firmware contrib
+#deb-src https://mirrors.aliyun.com/debian/ bookworm main non-free non-free-firmware contrib
+deb https://mirrors.aliyun.com/debian-security/ bookworm-security main
+#deb-src https://mirrors.aliyun.com/debian-security/ bookworm-security main
+deb https://mirrors.aliyun.com/debian/ bookworm-updates main non-free non-free-firmware contrib
+#deb-src https://mirrors.aliyun.com/debian/ bookworm-updates main non-free non-free-firmware contrib
+deb https://mirrors.aliyun.com/debian/ bookworm-backports main non-free non-free-firmware contrib
+#deb-src https://mirrors.aliyun.com/debian/ bookworm-backports main non-free non-free-firmware contrib
+
+清华大学源：
+deb https://mirrors.tsinghua.edu.cn/debian/ bookworm main non-free non-free-firmware contrib
+#deb-src https://mirrors.tsinghua.edu.cn/debian/ bookworm main non-free non-free-firmware contrib
+deb https://mirrors.tsinghua.edu.cn/debian-security/ bookworm-security main
+#deb-src https://mirrors.tsinghua.edu.cn/debian-security/ bookworm-security main
+deb https://mirrors.tsinghua.edu.cn/debian/ bookworm-updates main non-free non-free-firmware contrib
+#deb-src https://mirrors.tsinghua.edu.cn/debian/ bookworm-updates main non-free non-free-firmware contrib
+deb https://mirrors.tsinghua.edu.cn/debian/ bookworm-backports main non-free non-free-firmware contrib
+#deb-src https://mirrors.tsinghua.edu.cn/debian/ bookworm-backports main non-free non-free-firmware contrib
+中科大源：
+deb https://mirrors.ustc.edu.cn/debian/ bookworm main non-free non-free-firmware contrib
+#deb-src https://mirrors.ustc.edu.cn/debian/ bookworm main non-free non-free-firmware contrib
+deb https://mirrors.ustc.edu.cn/debian-security/ bookworm-security main
+#deb-src https://mirrors.ustc.edu.cn/debian-security/ bookworm-security main
+deb https://mirrors.ustc.edu.cn/debian/ bookworm-updates main non-free non-free-firmware contrib
+#deb-src https://mirrors.ustc.edu.cn/debian/ bookworm-updates main non-free non-free-firmware contrib
+deb https://mirrors.ustc.edu.cn/debian/ bookworm-backports main non-free non-free-firmware contrib
+#deb-src https://mirrors.ustc.edu.cn/debian/ bookworm-backports main non-free non-free-firmware contrib
+1.2  Ubuntu源 
+
+阿里源：
+deb http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse 
+#deb-src http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse 
+deb http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse 
+#deb-src http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse 
+deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse 
+#deb-src http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse 
+deb http://mirrors.aliyun.com/ubuntu/ jammy-proposed main restricted universe multiverse 
+#deb-src http://mirrors.aliyun.com/ubuntu/ jammy-proposed main restricted universe multiverse 
+deb http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse 
+#deb-src http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse
+清华大学源：
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble-backports main restricted universe multiverse 
+中科大源：
+deb https://mirrors.ustc.edu.cn/ubuntu/ jammy main restricted universe multiverse 
+#deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy main restricted universe multiverse 
+deb https://mirrors.ustc.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse 
+#deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse 
+deb https://mirrors.ustc.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse 
+#deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse 
+deb https://mirrors.ustc.edu.cn/ubuntu/ jammy-security main restricted universe multiverse 
+#deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy-security main restricted universe multiverse 
+deb https://mirrors.ustc.edu.cn/ubuntu/ jammy-proposed main restricted universe multiverse 
+#deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy-proposed main restricted universe multiverse
+2  安装并切换为Zsh 
+
+运行以下安装命令：
+sudo apt update
+sudo apt install zsh
+运行以下切换命令：
+chsh -s /bin/zsh
+重启之后即可
+3  Zsh配置 
+
+第一次进入Zsh界面会有配置引导界面，可以选择创建空白.zshrc。按照下面的顺序开始配置
+3.1  Oh My Zsh美化配置 
+
+安装oh-my-zsh可以通过curl和wget方法，对应命令如下：
+curl
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+wget
+sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+ 
+3.2  使用Powerlevel10k主题 
+
+安装方法：
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+使用Powerlevel10k主题，需要使用字体库Nerd Font中的字体，推荐到其官网下载其中一个喜欢的字体安装并设置为终端字体即可，无需下载整个字体库。官网地址：https://www.nerdfonts.com/font-downloads
+设置Powerlevel10k为Zsh主题：
+1.终端中输入vim ~/.zshrc
+2.在文件内找到ZSH_THEME
+3.修改其为ZSH_THEME="powerlevel10k/powerlevel10k"
+4.vim保存退出之后在终端执行source ~/.zshrc
+5.按照引导程序配置环境
+3.3  插件配置 
+
+推荐的插件：
+•  zsh-autosuggestions(zsh的自动补全插件)
+•  zsh-syntax-highlighting(zsh的语法高亮插件)
+•  z(zsh快速文件夹跳转插件)
+3.3.1  安装插件 
+
+zsh-autosuggestions 
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+zsh-syntax-highlighting 
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+z 
+z插件为zsh内置插件无需安装
+3.3.2  添加插件 
+
+1.终端中输入vim ~/.zshrc
+2.在文件内找到plugins
+3.修改其为
+plugins=(
+     # other plugins…
+     zsh-autosuggestions
+     zsh-syntax-highlighting
+     z
+)
+4.vim保存退出之后在终端执行source ~/.zshrc
