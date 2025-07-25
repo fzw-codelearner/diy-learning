@@ -1,0 +1,362 @@
+<TMU|<tuple|1.1.0|2025.0.14>>
+
+<style|<tuple|generic|chinese|number-europe>>
+
+<\body>
+  <doc-data|<doc-title|Zsh基础配置>|<doc-author|<author-data|<author-name|By Zewen Fu>>>>
+
+  <\table-of-contents|toc>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|1<space|2spc>配置软件源> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-1><vspace|0.5fn>
+
+    <with|par-left|1tab|1.1<space|2spc>Debian源 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-2>>
+
+    <with|par-left|1tab|1.2<space|2spc>Ubuntu源 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-3>>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|2<space|2spc>安装并切换为Zsh> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-4><vspace|0.5fn>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|3<space|2spc>Zsh配置> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-5><vspace|0.5fn>
+
+    <with|par-left|1tab|3.1<space|2spc>Oh My Zsh美化配置 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-6>>
+
+    <with|par-left|1tab|3.2<space|2spc>使用Powerlevel10k主题 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-7>>
+
+    <with|par-left|1tab|3.3<space|2spc>插件配置 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-8>>
+
+    <with|par-left|2tab|3.3.1<space|2spc>安装插件 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-9>>
+
+    <with|par-left|3tab|zsh-autosuggestions <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-10>>
+
+    <with|par-left|3tab|zsh-syntax-highlighting <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-11>>
+
+    <with|par-left|3tab|z <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-12>>
+
+    <with|par-left|2tab|3.3.2<space|2spc>添加插件 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-13>>
+  </table-of-contents>
+
+  <section|配置软件源>
+
+  因为默认软件源一般在国外，读取较慢，所以要修改软件源为国内镜像源
+
+  <\enumerate-numeric>
+    <item>打开软件源配置地址：<shell|sudo vim /etc/apt/sources.list>或者使用其他编辑器打开
+
+    <item>将原本配置源注释（即在对应行首插入#）
+
+    <item>添加对应国内镜像源
+
+    <item>保存退出
+  </enumerate-numeric>
+
+  以下是Debian和Ubuntu的国内镜像源，默认注释了源吗镜像以提高apt update的速度，如有需要可自行取消注释
+
+  <subsection|Debian源>
+
+  阿里云源：
+
+  <\shell-code>
+    deb https://mirrors.aliyun.com/debian/ bookworm main non-free non-free-firmware contrib
+
+    #deb-src https://mirrors.aliyun.com/debian/ bookworm main non-free non-free-firmware contrib
+
+    deb https://mirrors.aliyun.com/debian-security/ bookworm-security main
+
+    #deb-src https://mirrors.aliyun.com/debian-security/ bookworm-security main
+
+    deb https://mirrors.aliyun.com/debian/ bookworm-updates main non-free non-free-firmware contrib
+
+    #deb-src https://mirrors.aliyun.com/debian/ bookworm-updates main non-free non-free-firmware contrib
+
+    deb https://mirrors.aliyun.com/debian/ bookworm-backports main non-free non-free-firmware contrib
+
+    #deb-src https://mirrors.aliyun.com/debian/ bookworm-backports main non-free non-free-firmware contrib
+
+    \;
+  </shell-code>
+
+  清华大学源：
+
+  <\shell-code>
+    deb https://mirrors.tsinghua.edu.cn/debian/ bookworm main non-free non-free-firmware contrib
+
+    #deb-src https://mirrors.tsinghua.edu.cn/debian/ bookworm main non-free non-free-firmware contrib
+
+    deb https://mirrors.tsinghua.edu.cn/debian-security/ bookworm-security main
+
+    #deb-src https://mirrors.tsinghua.edu.cn/debian-security/ bookworm-security main
+
+    deb https://mirrors.tsinghua.edu.cn/debian/ bookworm-updates main non-free non-free-firmware contrib
+
+    #deb-src https://mirrors.tsinghua.edu.cn/debian/ bookworm-updates main non-free non-free-firmware contrib
+
+    deb https://mirrors.tsinghua.edu.cn/debian/ bookworm-backports main non-free non-free-firmware contrib
+
+    #deb-src https://mirrors.tsinghua.edu.cn/debian/ bookworm-backports main non-free non-free-firmware contrib
+  </shell-code>
+
+  中科大源：
+
+  <\verbatim-code>
+    deb https://mirrors.ustc.edu.cn/debian/ bookworm main non-free non-free-firmware contrib
+
+    #deb-src https://mirrors.ustc.edu.cn/debian/ bookworm main non-free non-free-firmware contrib
+
+    deb https://mirrors.ustc.edu.cn/debian-security/ bookworm-security main
+
+    #deb-src https://mirrors.ustc.edu.cn/debian-security/ bookworm-security main
+
+    deb https://mirrors.ustc.edu.cn/debian/ bookworm-updates main non-free non-free-firmware contrib
+
+    #deb-src https://mirrors.ustc.edu.cn/debian/ bookworm-updates main non-free non-free-firmware contrib
+
+    deb https://mirrors.ustc.edu.cn/debian/ bookworm-backports main non-free non-free-firmware contrib
+
+    #deb-src https://mirrors.ustc.edu.cn/debian/ bookworm-backports main non-free non-free-firmware contrib
+  </verbatim-code>
+
+  <subsection|Ubuntu源>
+
+  阿里源：
+
+  <\verbatim-code>
+    deb http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse\ 
+
+    #deb-src http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse\ 
+
+    deb http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse\ 
+
+    #deb-src http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse\ 
+
+    deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse\ 
+
+    #deb-src http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse\ 
+
+    deb http://mirrors.aliyun.com/ubuntu/ jammy-proposed main restricted universe multiverse\ 
+
+    #deb-src http://mirrors.aliyun.com/ubuntu/ jammy-proposed main restricted universe multiverse\ 
+
+    deb http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse\ 
+
+    #deb-src http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse
+  </verbatim-code>
+
+  清华大学源：
+
+  <\shell-code>
+    <\code>
+      deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble main restricted universe multiverse
+
+      # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble main restricted universe multiverse
+
+      deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble-updates main restricted universe multiverse
+
+      # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble-updates main restricted universe multiverse
+
+      deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble-backports main restricted universe multiverse
+
+      # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ noble-backports main restricted universe multiverse
+    </code>
+  </shell-code>
+
+  中科大源：
+
+  <\shell-code>
+    deb https://mirrors.ustc.edu.cn/ubuntu/ jammy main restricted universe multiverse\ 
+
+    #deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy main restricted universe multiverse\ 
+
+    deb https://mirrors.ustc.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse\ 
+
+    #deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse\ 
+
+    deb https://mirrors.ustc.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse\ 
+
+    #deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse\ 
+
+    deb https://mirrors.ustc.edu.cn/ubuntu/ jammy-security main restricted universe multiverse\ 
+
+    #deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy-security main restricted universe multiverse\ 
+
+    deb https://mirrors.ustc.edu.cn/ubuntu/ jammy-proposed main restricted universe multiverse\ 
+
+    #deb-src https://mirrors.ustc.edu.cn/ubuntu/ jammy-proposed main restricted universe multiverse
+  </shell-code>
+
+  <section|安装并切换为Zsh>
+
+  运行以下安装命令：
+
+  <\shell-code>
+    sudo apt update
+
+    sudo apt install zsh
+  </shell-code>
+
+  运行以下切换命令：
+
+  <\shell-code>
+    chsh -s /bin/zsh
+  </shell-code>
+
+  重启之后即可
+
+  <section|Zsh配置>
+
+  第一次进入Zsh界面会有配置引导界面，可以选择创建空白.zshrc。按照下面的顺序开始配置
+
+  <subsection|Oh My Zsh美化配置>
+
+  安装oh-my-zsh可以通过curl和wget方法，对应命令如下：
+
+  curl
+
+  <\shell-code>
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  </shell-code>
+
+  wget
+
+  <\shell-code>
+    sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+  </shell-code>
+
+  \ 
+
+  <subsection|使用Powerlevel10k主题>
+
+  安装方法：
+
+  <\shell-code>
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  </shell-code>
+
+  使用Powerlevel10k主题，需要使用字体库Nerd Font中的字体，推荐到其官网下载其中一个喜欢的字体安装并设置为终端字体即可，无需下载整个字体库。官网地址：<slink|https://www.nerdfonts.com/font-downloads>
+
+  设置Powerlevel10k为Zsh主题：
+
+  <\enumerate-numeric>
+    <item>终端中输入<shell|vim ~/.zshrc>
+
+    <item>在文件内找到ZSH_THEME
+
+    <item>修改其为<shell|ZSH_THEME="powerlevel10k/powerlevel10k">
+
+    <item>vim保存退出之后在终端执行<shell|source ~/.zshrc>
+
+    <item>按照引导程序配置环境
+  </enumerate-numeric>
+
+  <subsection|插件配置>
+
+  推荐的插件：
+
+  <\itemize>
+    <item>zsh-autosuggestions(zsh的自动补全插件)
+
+    <item>zsh-syntax-highlighting(zsh的语法高亮插件)
+
+    <item>z(zsh快速文件夹跳转插件)
+  </itemize>
+
+  <subsubsection|安装插件>
+
+  <paragraph|zsh-autosuggestions>
+
+  <\shell-code>
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  </shell-code>
+
+  <paragraph|zsh-syntax-highlighting>
+
+  <\shell-code>
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  </shell-code>
+
+  <paragraph|z>
+
+  z插件为zsh内置插件无需安装
+
+  <subsubsection|添加插件>
+
+  <\enumerate-numeric>
+    <item>终端中输入<shell|vim ~/.zshrc>
+
+    <item>在文件内找到plugins
+
+    <item>修改其为
+
+    <\shell-code>
+      plugins=(
+
+      \ <nbsp> <nbsp> # other plugins...
+
+      \ <nbsp> <nbsp> zsh-autosuggestions
+
+      \ <nbsp> <nbsp> zsh-syntax-highlighting
+
+      \ <nbsp> <nbsp> z
+
+      )
+    </shell-code>
+
+    <item>vim保存退出之后在终端执行<shell|source ~/.zshrc>
+  </enumerate-numeric>
+
+  \;
+</body>
+
+<\initial>
+  <\collection>
+    <associate|page-medium|paper>
+    <associate|page-screen-margin|false>
+  </collection>
+</initial>
+
+<\references>
+  <\collection>
+    <associate|auto-1|<tuple|1|1>>
+    <associate|auto-10|<tuple|3.3.1.1|4>>
+    <associate|auto-11|<tuple|3.3.1.2|5>>
+    <associate|auto-12|<tuple|3.3.1.3|5>>
+    <associate|auto-13|<tuple|3.3.2|5>>
+    <associate|auto-2|<tuple|1.1|1>>
+    <associate|auto-3|<tuple|1.2|2>>
+    <associate|auto-4|<tuple|2|3>>
+    <associate|auto-5|<tuple|3|4>>
+    <associate|auto-6|<tuple|3.1|4>>
+    <associate|auto-7|<tuple|3.2|4>>
+    <associate|auto-8|<tuple|3.3|4>>
+    <associate|auto-9|<tuple|3.3.1|4>>
+  </collection>
+</references>
+
+<\auxiliary>
+  <\collection>
+    <\associate|toc>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>配置软件源> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-1><vspace|0.5fn>
+
+      <with|par-left|<quote|1tab>|1.1<space|2spc>Debian源 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-2>>
+
+      <with|par-left|<quote|1tab>|1.2<space|2spc>Ubuntu源 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-3>>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>安装并切换为Zsh> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-4><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|3<space|2spc>Zsh配置> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-5><vspace|0.5fn>
+
+      <with|par-left|<quote|1tab>|3.1<space|2spc>Oh My Zsh美化配置 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-6>>
+
+      <with|par-left|<quote|1tab>|3.2<space|2spc>使用Powerlevel10k主题 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-7>>
+
+      <with|par-left|<quote|1tab>|3.3<space|2spc>插件配置 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-8>>
+
+      <with|par-left|<quote|2tab>|3.3.1<space|2spc>安装插件 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-9>>
+
+      <with|par-left|<quote|3tab>|zsh-autosuggestions <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-10>>
+
+      <with|par-left|<quote|3tab>|zsh-syntax-highlighting <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-11>>
+
+      <with|par-left|<quote|3tab>|z <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-12>>
+
+      <with|par-left|<quote|2tab>|3.3.2<space|2spc>添加插件 <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>> <no-break><pageref|auto-13>>
+    </associate>
+  </collection>
+</auxiliary>

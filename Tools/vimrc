@@ -1,0 +1,111 @@
+" Vim基础配置
+set number                      "显示行号
+set nocompatible                "采用vim操作命令而不是与vi兼容
+syntax on                       "语法高亮
+set showmode                    "显示vim所在模式
+set showcmd                     "在底部显示命令
+set encoding=utf-8              "使用utf-8编码
+set t_Co=256                    "启用256色
+filetype indent on              "自动载入对应文件类型的缩进策略
+set autoindent                  "自动使得下一行的缩进和上一行保持一致
+set tabstop=2                   "Tab键，vim显示的空格数
+set cursorline                  "显示光标所在的当前行高亮
+set wrap                        "自动折行
+set linebreak                   "只有遇到指定字符才发生折行，即不会出现单词内部折行
+set wrapmargin=2                "指定折行处和窗口右边缘之间空出的字符数
+set scrolloff=15                "光标距离底部/顶部的位置
+set laststatus=2                "显示状态栏，1表示只在多窗口时显示
+set ruler                       "显示光标所在的行列
+set showmatch                   "显示匹配括号
+set hlsearch                    "高亮搜索结果
+set autochdir                   "自动切换目录
+set noerrorbells							  "禁止出错时的提示声音
+set visualbell									"使用屏幕闪烁作为出错提示
+set history=1000								"记录1000条历史记录
+set autoread                    "当当前文件被更改时将出现提示
+set wildmenu                    "在命令行中自动补全文件名，可以tab键遍历
+set wildmode=list:longest,full  "list将显示可能匹配的文件列表,longest将首先匹配
+set noexpandtab                 "禁止将tab转化为空格
+filetype on                     "打开文件类型识别
+filetype plugin on              "载入文件类型插件
+
+" Vim插件配置
+" 首先安装Vim-plug，命令为：curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+" 安装插件
+call plug#begin('~/.vim/plugged')
+
+Plug 'scrooloose/nerdtree',{'on': 'NERDTreeToggle'}              "形成一个目录树插件
+Plug 'ryanoasis/vim-devicons'           "目录树的图标插件支持
+Plug 'Xuyuanp/nerdtree-git-plugin'      "目录树显示文件git状态插件
+Plug 'vim-airline/vim-airline'          "vim状态栏插件
+Plug 'vim-airline/vim-airline-themes'   "vim状态栏主题美化插件
+Plug '/usr/local/opt/fzf',{'do':{ -> fzf#install()}}
+Plug 'junegunn/fzf.vim'                  "模糊搜索
+Plug 'preservim/tagbar',{'on':'TagbarToggle'}                  "标签增强
+Plug 'luochen1990/rainbow'               "彩色括号
+
+call plug#end()
+
+" Vim插件设置
+
+" vim-airline配置
+let g:airline#extensions#tabline#enabled = 1
+" 使用powerline打过补丁的字体
+let g:airline_powerline_fonts = 1
+" 开启tabline
+let g:airline#extensions#tabline#enabled = 1
+" tabline中当前buffer两端的分隔字符
+let g:airline#extensions#tabline#left_sep = ' '
+" tabline中未激活buffer两端的分隔字符
+let g:airline#extensions#tabline#left_alt_sep = ' '
+" tabline中buffer显示编号
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_theme='violet'
+let g:airline_statusline_ontop=1
+
+" nerdtree配置
+let g:NERDTreeWinSize = 25 "设定 NERDTree 视窗大小
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif  "当标签页只剩下NerdTree时自动关闭
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif  "当窗口只剩下NerdTree时自动关闭
+let g:NERDTreeGitStatusIndicatorMapCustom= {
+        \ "Modified"  : "✹",
+        \ "Staged"    : "✚",
+        \ "Untracked" : "✭",
+        \ "Renamed"   : "➜",
+        \ "Unmerged"  : "═",
+        \ "Deleted"   : "✖",
+        \ "Dirty"     : "✗",
+        \ "Clean"     : "✔︎",
+        \ 'Ignored'   : '☒',
+        \ "Unknown"   : "?"
+    \ }                                      "NerdTree的git status符号自定义
+let g:NERDTreeFileLines = 1     "显示文件行数
+
+"rainbow setting
+let g:rainbow_active=1
+let g:rainbow_conf = {
+	\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+	\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+	\	'operators': '_,_',
+	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+	\	'separately': {
+	\		'*': {},
+	\		'tex': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+	\		},
+	\		'lisp': {
+	\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+	\		},
+	\		'vim': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+	\		},
+	\		'html': {
+	\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+	\		},
+	\		'css': 0,
+	\		'nerdtree': 0,
+	\	}
+	\}
+
+

@@ -1,4 +1,4 @@
-<TMU|<tuple|1.1.0|2025.0.12>>
+<TMU|<tuple|1.1.0|2025.0.14>>
 
 <style|<tuple|generic|chinese|number-europe>>
 
@@ -131,7 +131,23 @@
     </itemize>
   </remark>
 
-  <subsubsection|>
+  <subsubsection|初入江湖>
+
+  <\itemize>
+    <item>多提问，并且经常让团队评审你的工作成果
+
+    <item>了解如何编译、测试和部署代码
+
+    <item>阅读提交代码的请求和代码评审意见
+
+    <item>多报名参加技术讲座、午餐会、阅读小组、导师计划等
+
+    <item>了解你的管理者的工作风格，笠姐他们的期望，并和他们谈谈你的目标以及询问后续如何沟通
+
+    <item>了解项目的路线图和开发计划的全貌
+  </itemize>
+
+  \;
 </body>
 
 <\initial>
